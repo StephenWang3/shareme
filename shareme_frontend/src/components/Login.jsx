@@ -11,7 +11,6 @@ const Login = () => {
   const navigate = useNavigate()
   const responseGoogle = (response) => {
     const profileObj = jwtDecode(response.credential)
-    // localStorage.setItem('user', JSON.stringify(response.profileObj))
 
     const { name, sub, picture } = profileObj
 
@@ -21,6 +20,7 @@ const Login = () => {
       userName: name,
       image: picture
     }
+    localStorage.setItem('user', JSON.stringify(doc))
 
     client.createIfNotExists(doc).then(() => {
       navigate('/', { replace: true})
