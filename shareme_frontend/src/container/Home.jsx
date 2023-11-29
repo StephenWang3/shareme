@@ -8,17 +8,17 @@ import { userQuery } from '../utils/data';
 import { client } from '../client';
 import Pins from './Pins';
 import logo from '../assets/logo.png';
+import { fetchUser } from '../utils/fetchUser';
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
   const scrollRef = useRef(null);
-  const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+  const userInfo = fetchUser();
   useEffect(() => {
     const query = userQuery(userInfo?._id);
 
     client.fetch(query).then((data) => {
-      console.log('data:'+ data)
       setUser(data[0]);
     });
   }, []);
